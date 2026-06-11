@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "SURS",
   },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
   formatDetection: {
     telephone: false,
   },

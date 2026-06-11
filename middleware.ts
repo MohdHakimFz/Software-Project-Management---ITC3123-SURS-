@@ -28,8 +28,14 @@ function redirectTo(request: NextRequest, pathname: string) {
   return NextResponse.redirect(url);
 }
 
+const METADATA_ROUTES = new Set(["/manifest.webmanifest", "/robots.txt", "/sitemap.xml"]);
+
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  if (METADATA_ROUTES.has(pathname)) {
+    return NextResponse.next();
+  }
 
   // Public pages (except auth) — skip Supabase client entirely
   if (PUBLIC_ROUTES.has(pathname) && !AUTH_ROUTES.has(pathname)) {
@@ -83,6 +89,6 @@ export const config = {
      * Skip middleware for static assets, images, and API routes.
      * API routes handle their own auth — avoids double Supabase client work.
      */
-    "/((?!_next/static|_next/image|favicon.ico|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|robots.txt|sitemap.xml|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

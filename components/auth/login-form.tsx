@@ -42,7 +42,11 @@ export function LoginForm() {
     });
 
     if (authError) {
-      setError(authError.message);
+      const message =
+        authError.message === "Invalid login credentials"
+          ? "Invalid email or password. If this is a demo account, create the user in Supabase Auth (Authentication → Users) and disable email confirmation for testing."
+          : authError.message;
+      setError(message);
       setLoading(false);
       return;
     }
