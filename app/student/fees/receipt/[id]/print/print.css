@@ -1,0 +1,28 @@
+.receipt-print-root {
+  min-height: 100vh;
+  background: #e2e8f0;
+  padding: 24px 16px;
+}
+
+.receipt-print-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 12%);
+}
+
+@media print {
+  .receipt-print-root {
+    background: #fff !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+
+  .receipt-print-page {
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+}
