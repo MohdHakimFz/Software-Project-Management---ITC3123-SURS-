@@ -10,7 +10,7 @@ function getDaysLeft() {
 }
 
 export function CountdownBanner() {
-  const [days, setDays] = useState(getDaysLeft);
+  const [days, setDays] = useState<number | null>(null);
 
   useEffect(() => {
     setDays(getDaysLeft());
@@ -22,8 +22,8 @@ export function CountdownBanner() {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-400" />
       </span>
-      <span className="text-sm text-white/90">
-        <strong className="text-blue-200">{days} days</strong> left to enroll — Sem 2026/1
+      <span className="text-sm text-white/90" suppressHydrationWarning>
+        <strong className="text-blue-200">{days ?? "—"} days</strong> left to enroll — Sem 2026/1
       </span>
     </div>
   );
