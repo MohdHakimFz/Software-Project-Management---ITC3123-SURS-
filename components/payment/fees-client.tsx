@@ -77,9 +77,11 @@ export function FeesClient({
                   <span className="font-medium">{formatCurrency(row.amount)}</span>
                 </div>
               ))}
-              <div className="flex justify-between rounded-xl bg-uptm-blue/5 px-4 py-4 text-lg font-bold">
-                <span>Total Due</span>
-                <span className="text-uptm-blue">{formatCurrency(feeBreakdown.totalAmount)}</span>
+              <div className="flex justify-between rounded-xl border border-uptm-blue/15 bg-uptm-blue/5 px-4 py-4 text-lg font-bold dark:border-sky-500/25 dark:bg-sky-950/40">
+                <span className="text-foreground">Total Due</span>
+                <span className="text-uptm-blue dark:text-sky-300">
+                  {formatCurrency(feeBreakdown.totalAmount)}
+                </span>
               </div>
             </div>
             {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-400">{error}</p>}
