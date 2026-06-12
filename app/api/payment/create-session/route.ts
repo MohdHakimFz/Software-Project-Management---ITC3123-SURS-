@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getStripe } from "@/lib/stripe";
 import { calculateFees } from "@/lib/fees";
 import { parseAcademicCalendar } from "@/lib/academic-calendar";
+import { getAppUrl } from "@/lib/env";
 import { generateReceiptNumber } from "@/lib/utils";
 
 export async function POST() {
@@ -114,8 +115,8 @@ export async function POST() {
           message: "Your payment is processed securely by Stripe on behalf of UPTM SURS.",
         },
       },
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/student/fees/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/student/fees?cancelled=true`,
+      success_url: `${getAppUrl()}/student/fees/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${getAppUrl()}/student/fees?cancelled=true`,
       metadata: {
         payment_id: payment.id,
         student_id: user.id,

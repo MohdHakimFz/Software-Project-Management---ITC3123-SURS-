@@ -38,7 +38,23 @@ export function getSupabaseServiceRoleKey(): string {
 }
 
 export function getAppUrl(): string {
-  return process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const configured = process.env.NEXT_PUBLIC_APP_URL?.trim().replace(/\/$/, "");
+  const isLocalConfig =
+    !configured || /localhost|127\.0\.0\.1/i.test(configured);
+
+  // Vercel sets these automatically — use when APP_URL still points at localhost
+  if (process.env.VERCEL && isLocalConfig) {
+    const host =
+      (process.env.VERCEL_ENV === "production"
+        ? process.env.VERCEL_PROJECT_PRODUCTION_URL
+        : null) || process.env.VERCEL_URL;
+    if (host) {
+      const normalized = host.replace(/^https?:\/\//, "");
+      return `https://${normalized}`;
+    }
+  }
+
+  return configured || "http://localhost:3000";
 }
 
 export function isStripeTestMode(): boolean {
